@@ -241,6 +241,7 @@ html {
   appearance: none !important; /* Add this line */
   border-radius: 6px;
 }
+
 .dark-mode .logoutButton {
   background-color: #d1d1d2 !important;
   color: black !important;
