@@ -1,6 +1,9 @@
 const toggleButton = document.querySelector('.dark-light');
 const colors = document.querySelectorAll('.color');
-
+// window.onload = function() {
+//   document.body.classList.toggle('dark-mode');
+// };
+document.body.classList.toggle('dark-mode');
 colors.forEach(color => {
   color.addEventListener('click', e => {
     colors.forEach(c => c.classList.remove('selected'));

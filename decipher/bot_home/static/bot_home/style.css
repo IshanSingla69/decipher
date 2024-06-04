@@ -229,7 +229,30 @@ html {
 .user-settings > * + * {
   margin-left: 14px;
 }
+.logoutButtonContainer {
+  display: inline-block;
+}
+.logoutButton {
+  background-color: black !important;
+  color: white !important;
+  padding: 10px !important;
+  border: none !important;
+  cursor: pointer !important;
+  -webkit-appearance: none !important; /* Add this line */
+  appearance: none !important; /* Add this line */
+  border-radius: 6px;
+}
 
+.dark-mode .logoutButton {
+  background-color: #d1d1d2 !important;
+  color: black !important;
+  padding: 10px !important;
+  border: none !important;
+  cursor: pointer !important;
+  -webkit-appearance: none !important; /* Add this line */
+  appearance: none !important; /* Add this line */
+  border-radius: 6px;
+}
 .dark-light {
   width: 22px;
   height: 22px;
