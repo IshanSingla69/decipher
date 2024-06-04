@@ -1,7 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .decipher_bot import decipher
-# Create your views here.
+from django.http import HttpResponse
+
+
+
 def chatbot_view(request):
     if request.method == 'POST':
         prompt = request.POST.get('user-prompt')

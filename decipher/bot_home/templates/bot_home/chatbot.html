@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -22,11 +22,24 @@
    </div>
   
   <div class="user-settings">
+   <div class="logoutButtonContainer">
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logoutButton">Logout</button>
+    </form>
+</div>
    <div class="dark-light">
     <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" /></svg>
    </div>
-   <img class="user-profile" src="" alt="" class="account-profile" alt="">
+   {% if user.socialaccount_set.all %}
+   {% for account in user.socialaccount_set.all %}
+       {% if account.provider == 'google' %}
+       <img class="user-profile"  src="{{ account.get_avatar_url }}"  class="account-profile" alt="Profile Photo"></p>
+       {% endif %}
+   {% endfor %}
+{% endif %}
+  
   </div>
  </div>
  <div class="wrapper">
@@ -74,6 +87,7 @@
 Blockchain
 </div>
   
+
 <div class="button chat-area-recommendation">
   Russian Revolution
   </div>
@@ -81,9 +95,7 @@ Blockchain
     Geopolitics
     </div>
   </div>
-   
    </div>
-
    <div class="chat-area-footer">
     <form method="post" class="chat-area-footer">
       {% csrf_token %}
