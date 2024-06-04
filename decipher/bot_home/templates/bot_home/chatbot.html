@@ -10,6 +10,7 @@
 
 </head>
 <body>
+  <script src="https://kit.fontawesome.com/86f8e1a906.js" crossorigin="anonymous"></script>
 
   <div class="app">
  <div class="header">
@@ -44,6 +45,11 @@
   </div>
 
   <div class="chat-area">
+    {%if success%}
+    <div class="alert alert-success alert-dismissible" role="alert">
+      successfully added to your notion account
+    </div>
+    {%endif%} 
    <div class="chat-area-header">
     <div class="chat-area-title">Decipher</div>
    </div>
@@ -81,12 +87,10 @@ Blockchain
    <div class="chat-area-footer">
     <form method="post" class="chat-area-footer">
       {% csrf_token %}
-      <input type="text" placeholder="Type something here..." id = 'prompt' />
+      <input type="text" name="user-prompt" placeholder="Type something here..." id = 'prompt'/>
+      <button type="submit" class='btn'><i class="fa-solid fa-paper-plane"></i></button>
     </form>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-send">
-      <line x1="22" y1="2" x2="11" y2="13"></line>
-      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-  </svg>
+    
     </div>
   </div>
 
