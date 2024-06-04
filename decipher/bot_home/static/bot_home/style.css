@@ -181,6 +181,7 @@ html {
 .chat-area {
   flex-grow: 1;
   border-color: (var(--border-color));
+  overflow-y: auto;
 }
 
 .search-bar {
@@ -269,6 +270,7 @@ html {
   border-radius: 50%;
   object-fit: cover;
   margin-right: 15px;
+  
 }
 .msg-profile.group {
   display: flex;
@@ -414,11 +416,18 @@ html {
   justify-content: center;
 align-items: center;
 }
+.chat-area-default{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
 .chat-area-logo{
   height: 30%;
   width: 30%;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
   align-items: center;
 }
 .chat-msg-img {
@@ -592,10 +601,12 @@ align-items: center;
   height: 40%;
   width: 80%;
   display: flex;
+  
 }
 
 .chat-area-recommendation {
-  height: 20%;
+  height: auto;
+  max-height: 40%;
   width: 30%;
   font-weight: bold;
   font-size: 100%;
