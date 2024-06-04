@@ -1,6 +1,6 @@
 https://learnjavascript.online/
-https://www.fullstackacademy.com/blog/learn-javascript-for-free-13-online-tutorials-resources
-https://www.servicenow.com/community/in-other-news/javascript-learning-path-from-zero-to-hero/ba-p/2286363
-https://www.reddit.com/r/learnjavascript/
-https://www.quora.com/How-do-I-learn-JavaScript-with-zero-skill
-https://www.udemy.com/course/the-complete-javascript-course/
+https://javascript.info/
+https://www.codecademy.com/learn/introduction-to-javascript
+https://www.w3schools.com/js/
+https://www.w3schools.com/
+https://freecodecamp.org/
