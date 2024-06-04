@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-@+nk32-p5mkysy6s8^g7^5s&cfo4c@pjdj34z9(c*7d@$%#0va
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+SITE_ID = 3
+SOCIALACCOUNT_AUTO_SIGNUP = True
 
 # Application definition
 
@@ -38,9 +39,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bot_home',
-    'oauth'
+    'oauth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    "google":{
+        "SCOPE":{
+            "profile",
+            "email"
+        },
+        "AUTH_PARAMS":{"access_type":"online"}
+    }
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,6 +64,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
+
 ]
 
 ROOT_URLCONF = 'decipher.urls'
@@ -124,3 +141,9 @@ STATIC_ROOT = 'decipher/decipher/bot_home/static'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTHENTICATION_BACKENDS = {
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+}
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"

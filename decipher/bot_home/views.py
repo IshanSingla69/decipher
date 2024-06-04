@@ -1,9 +1,12 @@
 from django.shortcuts import render,redirect
-# Create your views here.
+from django.http import HttpResponse
+
+
+
 def chatbot_view(request):
     if request.method == 'POST':
-        prompt = request.POST.get('prompt')
-        print(prompt)
-        if prompt:
-            return redirect("bot_home/success.html")
-    return render(request, "bot_home/chatbot.html")
+        prompt_text = request.POST.get('prompt', '')
+        print(prompt_text) 
+        return render(request,"bot_home/chatbot.html",{"prompt":prompt_text})
+    else:
+        return render(request,"bot_home/chatbot.html")
