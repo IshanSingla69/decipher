@@ -47,8 +47,8 @@ def searchQuery(query, max_results=10):
             }
             videos.append(video_data)
 
-    title_file = open(PATH+"ytresultsTitle.txt", 'w')
-    links_file = open(PATH+"ytresultsLinks.txt", 'w')
+    title_file = open(PATH+"ytresultsTitle.txt", 'w', encoding='utf-8', errors='ignore')
+    links_file = open(PATH+"ytresultsLinks.txt", 'w', encoding='utf-8', errors='ignore')
 
     for video in videos:
         # print(f"Title: {video['title']}")
@@ -56,8 +56,8 @@ def searchQuery(query, max_results=10):
         # print(f"Description: {video['description']}")
         # print(f"Thumbnail: {video['thumbnail']}")
         # print("\n")
-
         title_file.write(f"{video['title']}\n")
+
         links_file.write(f"https://www.youtube.com/watch?v={video['videoId']}\n")
     title_file.close()
     links_file.close()

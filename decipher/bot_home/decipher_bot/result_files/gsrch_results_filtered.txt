@@ -1,6 +1,6 @@
-https://learnjavascript.online/
-https://javascript.info/
-https://www.codecademy.com/learn/introduction-to-javascript
-https://www.w3schools.com/js/
-https://www.w3schools.com/
-https://freecodecamp.org/
+https://discuss.python.org/t/how-can-i-add-n-newline-in-json-string/19240
+https://www.w3schools.com/python/
+https://www.python.org/
+https://www.programiz.com/python-programming/online-compiler/
+https://pythontutor.com/
+http://www.rpgroup.caltech.edu/aph161/assets/tut/t0a/t0a_setting_up_python.html
