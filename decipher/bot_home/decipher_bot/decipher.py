@@ -1,22 +1,22 @@
 from . import googlesrch as gsearch
 from . import youtubesrch as ytsearch
 from . import ConfigureSettings as _conf
-import os
+from . import create_notion as cnotion
+import os, re
 
 if not os.path.exists('bot_home/decipher_bot/result_files'):
     os.makedirs('bot_home/decipher_bot/result_files')
 
 PATH = 'bot_home/decipher_bot/result_files/'
 
-model = _conf.configureGemini()
 def SetUserPrompt(prompt):
     global userprompt
     userprompt = prompt
 
-def GetKeywords():
-    query = "Identify key topic word. Less than 5 words. Only from the prompt. User's prompt is: " + userprompt
+def GetKeywords(chat_session):
+    query = "Identify key topic word.Only technical words. Less than 5 words. Only from the prompt. User's prompt is: " + userprompt
     
-    keywords = queryGemini(query)
+    keywords = queryGemini(query, chat_session)
     
     gsearch.searchQuery(keywords)
     print(keywords)
@@ -29,18 +29,83 @@ def GetYoutubeLinks(topic):
     ytsearch.searchQuery(topic, 5)
     return True
 
-def GetIntroduction(topic):
-    query = "Tell me about "+topic+" in brief. Include its origin, applications, and other relevant information."
+def move_double_underscore(line):
+    if line.startswith('__'):
+        line_content = line[2:].strip()  # Remove the leading '__' and strip any trailing whitespace
+        return f"__{line_content}__"  # Add '__' to both ends of the line content
+    return line
 
-    introduction = queryGemini(query)
+
+def formatIntro(intro):
+    modified_intro = re.sub(r"\*","_", intro)
+    # extract the first line as title
+    lines = modified_intro.splitlines()
+    intro_title = lines[0]
+    modified_intro = modified_intro.replace(intro_title, "")
+
+    intro_title = re.sub(r"\#","", intro_title)
+    introlen = len(modified_intro)
+
+    _intro = {
+        "title": intro_title,
+        "intro": modified_intro
+    }
+
+    return _intro
+
+def GetIntroduction(topic, chat_session):
+    query = "Tell me about "+topic+" in brief. Include its origin, applications, and other relevant information. "
+
+    introduction = queryGemini(query, chat_session)
+    _intro = formatIntro(introduction)
+    introduction = _intro.get("intro")
+    intro_title = _intro.get("title")
+    if not intro_title:
+        print("No title found")
+    print(intro_title)
     file = open(PATH+"intro.txt", 'w')
     file.write(introduction)
-    file.close
+    file.close()
+    file2 = open(PATH+"intro_title.txt", 'w+')
+    file2.write(intro_title)
+    file2.close()
+
+
     return introduction
 
-def queryGemini(query):
-    chat_session = model.start_chat(history=[])
-
+def queryGemini(query, chat_session):
     #Find keywords
     response = chat_session.send_message(query)
-    return response.text
+    if response:
+        return response.text
+    return "No response"
+
+def CreateNotionPage(page_id, token, prompt):
+    cnotion.configureNotion(page_id, token)
+    SetUserPrompt(prompt)
+
+    # create chat session
+    model = _conf.configureGemini()
+    chat_session = model.start_chat(history=[])
+
+    keywords = GetKeywords(chat_session)
+    GetIntroduction(keywords, chat_session)
+    WriteAndFilterLinks(keywords)
+    GetYoutubeLinks(keywords)
+    intro_title_file = open(PATH+"intro_title.txt", 'r')
+    intro_file = open(PATH+"intro.txt", 'r')
+
+    cnotion.MakeNotionPage(
+        page_title=keywords,
+        heading1=intro_title_file.read(),
+        intro=intro_file.read(),
+        linksdb_title="Links To Read",
+        ytlinksdb_title="Youtube Links",
+        links_file=PATH+"gsrch_results_filtered.txt",
+        title_file=PATH+"gsrch_results_filtered.txt",
+        ytlinks_file=PATH+"ytresultsLinks.txt",
+        yttitle_file=PATH+"ytresultsTitle.txt"
+    )
+
+    intro_title_file.close()
+    intro_file.close()

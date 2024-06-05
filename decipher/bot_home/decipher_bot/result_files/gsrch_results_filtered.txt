@@ -1,6 +1,6 @@
-https://learnjavascript.online/
-https://javascript.info/
-https://www.codecademy.com/learn/introduction-to-javascript
-https://www.w3schools.com/js/
-https://www.w3schools.com/
-https://freecodecamp.org/
+https://stackoverflow.com/questions/6870858/java-how-to-remove-carriage-return-hex-0a-from-string
+https://www.w3schools.com/java/
+https://docs.oracle.com/javase/8/docs/api/java/sql/SQLFeatureNotSupportedException.html
+https://www.programiz.com/java-programming/online-compiler/
+https://github.com/pengrad/java-telegram-bot-api/issues/14
+https://www.geeksforgeeks.org/java-program-to-replace-all-line-breaks-from-strings/
