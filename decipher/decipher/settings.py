@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@+nk32-p5mkysy6s8^g7^5s&cfo4c@pjdj34z9(c*7d@$%#0va
 DEBUG = True
 
 ALLOWED_HOSTS = []
-SITE_ID = 3
+SITE_ID = 4
 SOCIALACCOUNT_AUTO_SIGNUP = True
 
 # Application definition
