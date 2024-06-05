@@ -1,6 +1,6 @@
-https://discuss.python.org/t/how-can-i-add-n-newline-in-json-string/19240
-https://www.w3schools.com/python/
-https://www.python.org/
-https://www.programiz.com/python-programming/online-compiler/
-https://pythontutor.com/
-http://www.rpgroup.caltech.edu/aph161/assets/tut/t0a/t0a_setting_up_python.html
+https://stackoverflow.com/questions/6870858/java-how-to-remove-carriage-return-hex-0a-from-string
+https://www.w3schools.com/java/
+https://docs.oracle.com/javase/8/docs/api/java/sql/SQLFeatureNotSupportedException.html
+https://www.programiz.com/java-programming/online-compiler/
+https://github.com/pengrad/java-telegram-bot-api/issues/14
+https://www.geeksforgeeks.org/java-program-to-replace-all-line-breaks-from-strings/
