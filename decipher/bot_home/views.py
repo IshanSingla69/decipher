@@ -8,7 +8,7 @@ integeration_token = "secret_ni7kJlPLPcaPmVlZCgXG2QDmz0xR7p1SL9Mg2MWTh52"
 
 def chatbot_view(request):
     if request.method == 'POST':
-        prompt = request.POST.get('user-prompt')
+        prompt = request.POST.get('prompt')
         print(prompt)
         if prompt:
             decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
