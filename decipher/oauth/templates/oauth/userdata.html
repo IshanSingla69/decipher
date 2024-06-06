@@ -11,12 +11,14 @@
 
     <body class="d-flex align-items-center justify-content-center" style="height: 100vh ;">
       <div class="card p-4">
-        <form>
+        
+        <form method="post" >
+          {% csrf_token %}
           <div class="mb-3">
-            <input type="password" class="form-control" id="int-token" placeholder="Integration Token" required>
+            <input type="password" class="form-control" name="int-token" placeholder="Integration Token" required>
           </div>
           <div class="mb-3">
-            <input type="text" class="form-control" id="page-id" placeholder="Page ID" required>
+            <input type="text" class="form-control" name="page-id" placeholder="Page ID" required>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
