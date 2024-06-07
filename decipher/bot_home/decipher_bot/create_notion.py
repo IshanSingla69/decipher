@@ -1,12 +1,21 @@
 import notion
+import notion.query
 from notion_client import Client
-import re
+import re, json
 
-def configureNotion(page_id, token):
+def configureNotion(parent_page_title, token):
+    
     global homepage
     global client
-    homepage = notion.Page(page_id)
+    global page_id
+
     client = Client(auth=token)
+    result = client.search(query= parent_page_title)['results'][0]['id']
+    print(result)
+    page_id = result
+    homepage = notion.Page(page_id)
+    # check if the page exists and if the token is valid
+    print("Notion Configured\nHomePage ID: " + homepage.id)
 
 def CreateNewEntry(db_id, title, url):
     new_entry = {
@@ -62,16 +71,21 @@ def process_intro_text(intro_text, page):
 
 
 def MakeNotionPage(page_title, heading1, intro, linksdb_title, ytlinksdb_title, links_file, title_file, ytlinks_file, yttitle_file):
+
+    print("Creating new page")
+    print("At page: " + homepage.id)
     new_page = notion.Page.create(
     parent_instance=homepage,
-    page_title=page_title,
+    page_title="Hello World!",
     )
+    if new_page.id:
+        print("Page created successfully")
     heading_block = notion.Block.heading_2(
         parent_object=new_page,
         rich_text=heading1,
     )
     
-    process_intro_text(intro, new_page)
+    # process_intro_text(intro, new_page)
 
     link_db = notion.Database.create(
         parent_instance=new_page,

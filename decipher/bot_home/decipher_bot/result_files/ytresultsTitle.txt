@@ -1,3 +1,4 @@
-Python Tutorial - Python Full Course for Beginners
-Python in 100 Seconds
-Python for Beginners - Learn Python in 1 Hour
+C++ in 100 Seconds
+C++ Tutorial for Beginners - Learn C++ in 1 Hour
+the TRUTH about C++ (is it worth your time?)
+15 Years Writing C++ - Advice for new programmers

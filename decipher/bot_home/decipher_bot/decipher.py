@@ -12,6 +12,7 @@ PATH = 'bot_home/decipher_bot/result_files/'
 def SetUserPrompt(prompt):
     global userprompt
     userprompt = prompt
+    print("User Prompt Set: " + userprompt)
 
 def GetKeywords(chat_session):
     query = "Identify key topic word.Only technical words. Less than 5 words. Only from the prompt. User's prompt is: " + userprompt
@@ -80,8 +81,10 @@ def queryGemini(query, chat_session):
         return response.text
     return "No response"
 
-def CreateNotionPage(page_id, token, prompt):
-    cnotion.configureNotion(page_id, token)
+def CreateNotionPage(parent_page_title, token, prompt):
+    print("Configuring Notion...")
+    cnotion.configureNotion(parent_page_title, token)
+    print("Setting User Prompt...")
     SetUserPrompt(prompt)
 
     # create chat session
@@ -95,6 +98,7 @@ def CreateNotionPage(page_id, token, prompt):
     intro_title_file = open(PATH+"intro_title.txt", 'r')
     intro_file = open(PATH+"intro.txt", 'r')
 
+    print("Creating Notion Page...")
     cnotion.MakeNotionPage(
         page_title=keywords,
         heading1=intro_title_file.read(),

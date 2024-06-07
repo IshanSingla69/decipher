@@ -1,6 +1,6 @@
-https://discuss.python.org/t/how-can-i-add-n-newline-in-json-string/19240
-https://www.w3schools.com/python/
-https://www.python.org/
-https://www.programiz.com/python-programming/online-compiler/
-https://www.online-python.com/
-https://www.urldecoder.io/python/
+https://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp1_Basics.html
+https://stackoverflow.com/questions/54859131/why-doesnt-stack-overflow-encode-c-to-c2b2b-in-its-url
+https://cpp.sh/
+https://pythontutor.com/visualize.html
+https://www.w3schools.com/cpp/
+https://firebase.google.com/

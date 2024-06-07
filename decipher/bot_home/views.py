@@ -6,11 +6,10 @@ from django.http import JsonResponse
 import json
 # from .decipher_bot.telegram_bot.events import Publisher, Subscriber
 
-notion_page_id = "3411ec690b544b14bf57b99eb052f3e4"
-integeration_token = "secret_ni7kJlPLPcaPmVlZCgXG2QDmz0xR7p1SL9Mg2MWTh52"
-
-notion_page_id:str = ""
-integeration_token:str = ""
+# notion_page_id = "3411ec690b544b14bf57b99eb052f3e4"
+# integeration_token = "secret_wAFuiNtCeIKJYg9YvElKNT2nVQ7RUAygBqQ1pAfthXz"
+integeration_token = "secret_z4uu8mdFb3249mmnxKAqOcG0w9hmzf1QL652fMvp3uP"
+notion_page_title = "Decipher-Bot"
 details_confirmed:bool = False
 
 
@@ -27,48 +26,49 @@ details_confirmed:bool = False
 # set_user_details_subscriber = Subscriber('details_confirmed', set_user_details)
 # Publisher.register('details_confirmed', set_user_details_subscriber)
 
+# def chatbot_view(request):
+#     if request.method == 'POST':
+#         prompt = request.POST.get('user-prompt')
+#         print(prompt)
+#         if prompt:
+#             decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
+#             context ={
+#                 'prompt':prompt,
+#                 'success': True
+#             }
+#             return render(request, "bot_home/chatbot.html", context)
+#     return render(request, "bot_home/chatbot.html")
+#     # if details_confirmed:
+#     #     if request.method == 'POST':
+#     #         prompt = request.POST.get('user-prompt')
+#     #         print(prompt)
+#     #         if prompt:
+#     #             decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
+#     #             context ={
+#     #                 'prompt':prompt,
+#     #                 'success': True
+#     #             }
+#     #             return render(request, "bot_home/chatbot.html", context)
+#     #     return render(request, "bot_home/chatbot.html")
+#     # else:
+#     #     return HttpResponse("Please set your integration token and page id first " + details_confirmed.__str__() + " page id: "+ notion_page_id + " integration token " + integeration_token)
+    
+
 def chatbot_view(request):
     if request.method == 'POST':
         prompt = request.POST.get('user-prompt')
         print(prompt)
         if prompt:
-            decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
+            print(integeration_token)
+            decipher.CreateNotionPage(notion_page_title, integeration_token, prompt)
             context ={
                 'prompt':prompt,
                 'success': True
             }
             return render(request, "bot_home/chatbot.html", context)
+        return redirect("bot_home:chatbot_view")
     return render(request, "bot_home/chatbot.html")
-    # if details_confirmed:
-    #     if request.method == 'POST':
-    #         prompt = request.POST.get('user-prompt')
-    #         print(prompt)
-    #         if prompt:
-    #             decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
-    #             context ={
-    #                 'prompt':prompt,
-    #                 'success': True
-    #             }
-    #             return render(request, "bot_home/chatbot.html", context)
-    #     return render(request, "bot_home/chatbot.html")
-    # else:
-    #     return HttpResponse("Please set your integration token and page id first " + details_confirmed.__str__() + " page id: "+ notion_page_id + " integration token " + integeration_token)
-    
-
-def dashboard_view(request):
-    if request.method == 'POST':
-        prompt = request.POST.get('user-prompt')
-        print(prompt)
-        if prompt:
-            decipher.CreateNotionPage(notion_page_id, integeration_token, prompt)
-            context ={
-                'prompt':prompt,
-                'success': True
-            }
-            return render(request, "bot_home/dashboard.html", context)
-        return redirect("chatbot_view")
-    return render(request, "bot_home/dashboard.html")
 
 
 def success_view(request):
-    return redirect("chatbot_view")
+    return redirect("bot_home:chatbot_view")

@@ -24,13 +24,13 @@ def apikey(request):
             id = request.POST.get("page-id")  
             userauth = AuthenticationId(user_mail = request.user,integration_key=key,page_id=id)
             userauth.save()
-            return render(request,'bot_home/chatbot.html')
+            return redirect("bot_home:chatbot_view")
         else:
-            return render(request,'bot_home/chatbot.html')
+            return redirect("bot_home:chatbot_view")
     else:
         authids = AuthenticationId.objects.all()
         authkey = authids.filter(user_mail=request.user)
         if authkey:
-            return render(request,'bot_home/chatbot.html')
+            return redirect("bot_home:chatbot_view")
         else:
             return render(request,'oauth/userdata.html')

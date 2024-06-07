@@ -7,3 +7,10 @@ class AuthenticationId(models.Model):
     page_id = models.CharField(max_length=255)
     def __str__(self):
         return f"{self.user_mail.username}"
+    
+class Page(models.Model):
+    user_mail = models.ForeignKey(AuthenticationId,related_name="pages", on_delete=models.CASCADE)
+    page_name = models.CharField(max_length=255, default="New Page", )
+    page_token = models.CharField(max_length=255, default="New Token")
+    def __str__(self):
+        return f"{self.page_name}"
