@@ -32,11 +32,11 @@ def file_to_entries(db_id, title_file, links_file):
             create_new_entry(db_id, title, link)
 
 def process_intro_text(intro_text, page_id):
-    segments = re.split(r'(__[^_]+__|_[^_]+_)', intro_text)
+    segments = re.split(r'(\*\*[^*]+\*\*|\*[^*]+\*)', intro_text)
     blocks = []
 
     for segment in segments:
-        if segment.startswith('__') and segment.endswith('__'):
+        if segment.startswith('**') and segment.endswith('**'):
             text = segment[2:-2]
             blocks.append({
                 "object": "block",
@@ -49,18 +49,42 @@ def process_intro_text(intro_text, page_id):
                     }]
                 }
             })
-        elif segment.startswith('_') and segment.endswith('_'):
+        elif segment.startswith('*') and segment.endswith('*'):
             text = segment[1:-1]
-            blocks.append({
-                "object": "block",
-                "type": "bulleted_list_item",
-                "bulleted_list_item": {
-                    "rich_text": [{
-                        "type": "text",
-                        "text": {"content": text}
-                    }]
-                }
-            })
+            if '**' in text:
+                parts = re.split(r'(\*\*[^*]+\*\*)', text)
+                rich_text = []
+                for part in parts:
+                    if part.startswith('**') and part.endswith('**'):
+                        part = part[2:-2]
+                        rich_text.append({
+                            "type": "text",
+                            "text": {"content": part},
+                            "annotations": {"bold": True}
+                        })
+                    else:
+                        rich_text.append({
+                            "type": "text",
+                            "text": {"content": part}
+                        })
+                blocks.append({
+                    "object": "block",
+                    "type": "bulleted_list_item",
+                    "bulleted_list_item": {
+                        "rich_text": rich_text
+                    }
+                })
+            else:
+                blocks.append({
+                    "object": "block",
+                    "type": "bulleted_list_item",
+                    "bulleted_list_item": {
+                        "rich_text": [{
+                            "type": "text",
+                            "text": {"content": text}
+                        }]
+                    }
+                })
         else:
             blocks.append({
                 "object": "block",
@@ -102,6 +126,7 @@ def make_notion_page(page_title, heading1, intro, linksdb_title, ytlinksdb_title
         link_db = client.databases.create(
             parent={"type": "page_id", "page_id": new_page_id},
             title=[{"type": "text", "text": {"content": linksdb_title}}],
+            is_inline=True,
             properties={
                 "Name": {"title": {}},
                 "URL": {"url": {}},
@@ -112,6 +137,7 @@ def make_notion_page(page_title, heading1, intro, linksdb_title, ytlinksdb_title
         ytlink_db = client.databases.create(
             parent={"type": "page_id", "page_id": new_page_id},
             title=[{"type": "text", "text": {"content": ytlinksdb_title}}],
+            is_inline=True,
             properties={
                 "Name": {"title": {}},
                 "URL": {"url": {}},

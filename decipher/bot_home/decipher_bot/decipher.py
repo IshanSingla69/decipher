@@ -2,6 +2,7 @@ from . import googlesrch as gsearch
 from . import youtubesrch as ytsearch
 from . import ConfigureSettings as _conf
 from . import create_notion as cnotion
+from . import creating_notion_page_revised as cnp
 import os, re
 
 if not os.path.exists('bot_home/decipher_bot/result_files'):
@@ -38,13 +39,15 @@ def move_double_underscore(line):
 
 
 def formatIntro(intro):
-    modified_intro = re.sub(r"\*","_", intro)
+    # modified_intro = re.sub(r"\*","_", intro)
+    modified_intro = intro
     # extract the first line as title
     lines = modified_intro.splitlines()
     intro_title = lines[0]
     modified_intro = modified_intro.replace(intro_title, "")
+    modified_intro = re.sub(r"\n+", "\n", modified_intro).strip()
+    intro_title = re.sub(r"\#","", intro_title).strip()
 
-    intro_title = re.sub(r"\#","", intro_title)
     introlen = len(modified_intro)
 
     _intro = {
@@ -83,7 +86,8 @@ def queryGemini(query, chat_session):
 
 def CreateNotionPage(parent_page_title, token, prompt):
     print("Configuring Notion...")
-    cnotion.configureNotion(parent_page_title, token)
+    # cnotion.configureNotion(parent_page_title, token)
+    cnp.configureNotion(parent_page_title, token)
     print("Setting User Prompt...")
     SetUserPrompt(prompt)
 
@@ -99,7 +103,18 @@ def CreateNotionPage(parent_page_title, token, prompt):
     intro_file = open(PATH+"intro.txt", 'r')
 
     print("Creating Notion Page...")
-    cnotion.MakeNotionPage(
+    # cnotion.MakeNotionPage(
+    #     page_title=keywords,
+    #     heading1=intro_title_file.read(),
+    #     intro=intro_file.read(),
+    #     linksdb_title="Links To Read",
+    #     ytlinksdb_title="Youtube Links",
+    #     links_file=PATH+"gsrch_results_filtered.txt",
+    #     title_file=PATH+"gsrch_results_filtered.txt",
+    #     ytlinks_file=PATH+"ytresultsLinks.txt",
+    #     yttitle_file=PATH+"ytresultsTitle.txt"
+    # )
+    cnp.make_notion_page(
         page_title=keywords,
         heading1=intro_title_file.read(),
         intro=intro_file.read(),

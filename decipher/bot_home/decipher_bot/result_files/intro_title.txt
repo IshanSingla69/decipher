@@ -1,1 +1,1 @@
- C++ in a Nutshell:
+TypeScript in a Nutshell:

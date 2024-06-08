@@ -3,13 +3,16 @@ from django.http import HttpResponse
 from .decipher_bot import decipher
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.contrib.auth.models import User 
+
 import json
+from .models import AuthenticationId
 # from .decipher_bot.telegram_bot.events import Publisher, Subscriber
 
 # notion_page_id = "3411ec690b544b14bf57b99eb052f3e4"
 # integeration_token = "secret_wAFuiNtCeIKJYg9YvElKNT2nVQ7RUAygBqQ1pAfthXz"
-integeration_token = "secret_z4uu8mdFb3249mmnxKAqOcG0w9hmzf1QL652fMvp3uP"
-notion_page_title = "Decipher-Bot"
+# integeration_token = "secret_z4uu8mdFb3249mmnxKAqOcG0w9hmzf1QL652fMvp3uP"
+# notion_page_title = "Decipher-Bot"
 details_confirmed:bool = False
 
 
@@ -57,6 +60,9 @@ details_confirmed:bool = False
 def chatbot_view(request):
     if request.method == 'POST':
         prompt = request.POST.get('user-prompt')
+        auth_id = AuthenticationId.objects.get(user_mail=request.user)
+        notion_page_title = auth_id.page_title
+        integeration_token = auth_id.integration_key
         print(prompt)
         if prompt:
             print(integeration_token)

@@ -22,7 +22,7 @@ def apikey(request):
         if not authkey:
             key = request.POST.get("int-token")
             id = request.POST.get("page-id")  
-            userauth = AuthenticationId(user_mail = request.user,integration_key=key,page_id=id)
+            userauth = AuthenticationId(user_mail = request.user,integration_key=key,page_title=id)
             userauth.save()
             return redirect("bot_home:chatbot_view")
         else:

@@ -1,4 +1,5 @@
-C++ in 100 Seconds
-C++ Tutorial for Beginners - Learn C++ in 1 Hour
-the TRUTH about C++ (is it worth your time?)
-15 Years Writing C++ - Advice for new programmers
+Big projects are ditching TypeScript… why?
+TypeScript in 100 Seconds
+TypeScript Tutorial for Beginners
+Learn TypeScript – Full Tutorial
+TypeScript - The Basics
