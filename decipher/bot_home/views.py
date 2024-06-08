@@ -76,5 +76,9 @@ def chatbot_view(request):
     return render(request, "bot_home/chatbot.html")
 
 
+def pages_view(request):
+    user = request.user
+    return render(request, "bot_home/pages.html")
+
 def success_view(request):
     return redirect("bot_home:chatbot_view")
